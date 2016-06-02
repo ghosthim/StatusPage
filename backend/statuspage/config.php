@@ -2,7 +2,7 @@
 namespace NerdBaggy\StatusPage;
 
 //Uptime Robot API Key
-define('apiKey', 'u331164-dde2d4b06be7a7d03f7d579e');
+define('apiKey', '');
 
 //Uptime percentage for following days
 define('historyDay', '1-7-30-360');
@@ -14,7 +14,7 @@ define('historyDaysNames', serialize(array('Past 24 Hours', 'Past Week', 'Past M
 define('cacheTime', 300);
 
 //Only show these monitors
-define('includedMonitors', 'MyOwnCloud');
+define('includedMonitors', '');
 
 //Hide certain monitors
 define('excludedMonitors', serialize(array()));
