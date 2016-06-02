@@ -14,7 +14,7 @@ define('historyDaysNames', serialize(array('Past 24 Hours', 'Past Week', 'Past M
 define('cacheTime', 300);
 
 //Only show these monitors
-define('includedMonitors', '');
+define('includedMonitors', 'MyOwnCloud');
 
 //Hide certain monitors
 define('excludedMonitors', serialize(array()));
