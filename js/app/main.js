@@ -145,12 +145,12 @@ $( document ).ready(function() {
         $.each(check.log || [], function(index, events) {
             var timeDiff = null;
             if (index === 0) {
-                var diffSeconds = (check.currentTime - events.datetime );
+                var diffSeconds = events.duration; //(check.currentTime - events.datetime );
                 var diffHours = Math.floor(diffSeconds / 3600);
                 var diffMinutes = Math.floor((diffSeconds % 3600) / 60);
                 timeDiff = diffHours + ' hours, ' + diffMinutes + ' Mins';
             } else {
-                var diffSeconds = check.log[index - 1]['dateMs'] - events.datetime;
+                var diffSeconds = events.duration; // check.log[index - 1]['dateMs'] - events.datetime;
                 var diffHours = Math.floor(diffSeconds / 3600);
                 var diffMinutes = Math.floor((diffSeconds % 3600) / 60);
                 timeDiff = diffHours + ' hours, ' + diffMinutes + ' Mins';
