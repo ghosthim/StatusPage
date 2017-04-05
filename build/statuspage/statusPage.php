@@ -61,7 +61,7 @@ class statusPage
 
 						foreach ($check['response_times'] as $key => $restime) {
 							$fixedResponseTimes[] = array(
-								'datetime' => date("Y-m-d G:i:s", strtotime($restime['datetime'])),
+								'datetime' => date("Y-m-d G:i:s", $restime['datetime']),
 								'value' => $restime['value']
 								);
 						}
@@ -74,7 +74,7 @@ class statusPage
 						$fixedEventTime[] = array(
 							'actualTime' => $dt['datetime'],
 							'type' => $dt['type'],
-							'datetime' => strtotime($dt['datetime'])
+							'datetime' => $dt['datetime']
 							);
 					}
 
