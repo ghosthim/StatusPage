@@ -57,9 +57,9 @@ class statusPage
 					$fixedResponseTimes = array();
 					$fixedEventTime = array();
 
-					if (is_array($check['responsetime'])) {
+					if (is_array($check['response_time'])) {
 
-						foreach ($check['responsetime'] as $key => $restime) {
+						foreach ($check['response_time'] as $key => $restime) {
 							$fixedResponseTimes[] = array(
 								'datetime' => date("Y-m-d G:i:s", strtotime($restime['datetime'])),
 								'value' => $restime['value']
