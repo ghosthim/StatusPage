@@ -72,7 +72,7 @@ class statusPage
 
 					   foreach ($check['logs'] as $key => $dt) {
 						$fixedEventTime[] = array(
-							'actualTime' => $dt['datetime'],
+							'actualTime' => date("Y-m-d G:i:s", strtotime($dt['datetime'])),
 							'type' => $dt['type'],
 							'datetime' => $dt['datetime']
 							);
@@ -92,7 +92,7 @@ class statusPage
 					'log' => $fixedEventTime,
 					'responseTime' => $fixedResponseTimes,
 					'timezone' => intval($checksArray['timezone']),
-					'currentTime' => time() + (intval($checksArray['timezone']))* 60
+					'currentTime' => time() + (intval($checksArray['timezone']))*60
 					);
 				$cache->set('statuspage-' . $check['id'], $tempCheck, constant('cacheTime'));
 			}
@@ -122,11 +122,11 @@ private function getChecksJson($action)
 
     // $url = "https://api.uptimerobot.com/getMonitors?apikey=$apiKey&format=json&noJsonCallback=1&customUptimeRatio=$historyDay";
     $url = "https://api.uptimerobot.com/v2/getMonitors";
-    $fields = "api_key=$apiKey&format=json&custom_uptime_ratios=$historyDay&all_time_uptime_ratio=1";
+    $fields = "api_key=$apiKey&format=json&custom_uptime_ratios=$historyDay&all_time_uptime_ratio=1&timezone=1";
 
     if ($action){
 
-        $fields .= '&logs=1&response_times=1&response_times_average=30&timezone=1';
+        $fields .= '&logs=1&response_times=1&response_times_average=30';
     }
 
     if (constant('includedMonitors') != '') {
