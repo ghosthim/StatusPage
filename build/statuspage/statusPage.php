@@ -60,9 +60,8 @@ class statusPage
 					if (is_array($check['response_times'])) {
 
 						foreach ($check['response_times'] as $key => $restime) {
-							$timeoffset = intval($restime['datetime']) + intval($checksArray['timezone']))*60;
 							$fixedResponseTimes[] = array(
-								'datetime' => date("Y-m-d G:i:s", strval($timeoffset)),
+								'datetime' => date("Y-m-d G:i:s", $restime['datetime']),
 								'value' => $restime['value']
 								);
 						}
@@ -72,11 +71,11 @@ class statusPage
 					if (!is_null($check['logs'])){
 
 					   foreach ($check['logs'] as $key => $dt) {
-						   $timeoffset = intval($dt['datetime']) + intval($checksArray['timezone']))*60;
+						   
 						$fixedEventTime[] = array(
-							'actualTime' => date("m/d/Y G:i:s", strval($timeoffset)),
+							'actualTime' => date("m/d/Y G:i:s", $dt['datetime']),
 							'type' => $dt['type'],
-							'datetime' => $timeoffset,
+							'datetime' => $dt['datetime'],
                             'duration' => intval($dt['duration'])
 							);
                         }
