@@ -123,8 +123,8 @@ private function getChecksJson($action)
     $historyDay = constant('historyDay');
 
     // $url = "https://api.uptimerobot.com/getMonitors?apikey=$apiKey&format=json&noJsonCallback=1&customUptimeRatio=$historyDay";
-    $url = "https://api.uptimerobot.com/v2/getMonitors"
-    $fields = "api_key=$apiKey&format=json&custom_uptime_ratios=$historyDay"
+    $url = "https://api.uptimerobot.com/v2/getMonitors";
+    $fields = "api_key=$apiKey&format=json&custom_uptime_ratios=$historyDay";
 
     if ($action){
 
