@@ -3,11 +3,11 @@ namespace NerdBaggy\StatusPage;
 
 class statusPage
 {
-    
+
     public function getChecks($action = null)
     {
         $cache = phpFastCache();
-        
+
         $allChecks = $cache->get('statuspage-allChecks');
         if ($allChecks === null) {
 
@@ -30,35 +30,35 @@ class statusPage
 				}
 			}
 		}
-		
+
         if ($needsUpdated){
             $this->updateCache(true);
-            
+
             foreach ($allChecks as $key => $cid) {
                 $allCheckInfo[] = $cache->get('statuspage-' . $cid);
             }
         }
         return $allCheckInfo;
     }
-    
+
     public function updateCache($action)
     {
         date_default_timezone_set("UTC");
         $cache            = phpFastCache();
         $checksArray      = $this->getChecksJson($action);
         $excludedMonitors = unserialize(constant('excludedMonitors'));
-        
+
 		if(count($checksArray['monitors']['monitor'])){
 			foreach ($checksArray['monitors']['monitor'] as $key => $check) {
 				if (!in_array($check['id'], $excludedMonitors)) {
-					
-					
+
+
 					$allCheckID[]       = $check['id'];
 					$fixedResponseTimes = array();
 					$fixedEventTime = array();
 
 					if (is_array($check['responsetime'])) {
-						
+
 						foreach ($check['responsetime'] as $key => $restime) {
 							$fixedResponseTimes[] = array(
 								'datetime' => date("Y-m-d G:i:s", strtotime($restime['datetime'])),
@@ -85,12 +85,12 @@ class statusPage
 
 				$tempCheck = array(
 					'id' => $check['id'],
-					'name' => html_entity_decode($check['friendlyname']),
+					'name' => html_entity_decode($check['friendly_name']),
 					'type' => $check['type'],
 					'interval' => $check['interval'],
 					'status' => $check['status'],
-					'allUpTimeRatio' => $check['alltimeuptimeratio'],
-					'customUptimeRatio' => explode("-", $check['customuptimeratio']),
+					'allUpTimeRatio' => $check['all_time_uptime_ratio'],
+					'customUptimeRatio' => explode("-", $check['custom_uptime_ratios']),
 					'log' => $fixedEventTime,
 					'responseTime' => $fixedResponseTimes,
 					'timezone' => intval($checksArray['timezone']),
@@ -121,11 +121,11 @@ private function getChecksJson($action)
 {
     $apiKey     = constant('apiKey');
     $historyDay = constant('historyDay');
-    
+
     // $url = "https://api.uptimerobot.com/getMonitors?apikey=$apiKey&format=json&noJsonCallback=1&customUptimeRatio=$historyDay";
     $url = "https://api.uptimerobot.com/v2/getMonitors"
     $fields = "api_key=$apiKey&format=json&custom_uptime_ratios=$historyDay"
-    
+
     if ($action){
 
         $fields .= '&logs=1&response_times=1&response_times_average=30&timezone=1';
@@ -135,19 +135,19 @@ private function getChecksJson($action)
         $monitors = constant('includedMonitors');
         $fields .= "&monitors=$monitors";
  	}
-	
+
     if (constant('searchMonitors') != '') {
         $search = constant('searchMonitors');
         $fields .= "&search=$search";
  	}
-    
+
     $curl = curl_init();
     /*curl_setopt_array($curl, array(
         CURLOPT_RETURNTRANSFER => 1,
         CURLOPT_URL => $url,
         CURLOPT_USERAGENT => 'UptimeRobot Public Status Page',
         CURLOPT_CONNECTTIMEOUT => 10
-        ));*/
+    ));*/
     curl_setopt_array($curl, array(
         CURLOPT_URL => $url,
         CURLOPT_RETURNTRANSFER => true,
