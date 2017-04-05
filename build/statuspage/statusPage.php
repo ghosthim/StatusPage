@@ -74,7 +74,8 @@ class statusPage
 						$fixedEventTime[] = array(
 							'actualTime' => date("m/d/Y G:i:s", $dt['datetime']),
 							'type' => $dt['type'],
-							'datetime' => $dt['datetime']
+							'datetime' => $dt['datetime'],
+                            'duration' => intval($dt['duration']) // in seconds
 							);
 					}
 
