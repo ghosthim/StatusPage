@@ -72,7 +72,7 @@ class statusPage
 
 					   foreach ($check['logs'] as $key => $dt) {
 						$fixedEventTime[] = array(
-							'actualTime' => date("m-d-Y G:i:s", strtotime($dt['datetime'])),
+							'actualTime' => date("m/d/Y G:i:s", strtotime($dt['datetime'])),
 							'type' => $dt['type'],
 							'datetime' => $dt['datetime']
 							);
