@@ -61,7 +61,7 @@ class statusPage
 
 						foreach ($check['response_times'] as $key => $restime) {
 							$fixedResponseTimes[] = array(
-								'datetime' => date("Y-m-d G:i:s", $restime['datetime']),
+								'datetime' => date("Y-m-d G:i:s", intval($restime['datetime'])+intval($checksArray['timezone']))*60),
 								'value' => $restime['value']
 								);
 						}
@@ -72,9 +72,9 @@ class statusPage
 
 					   foreach ($check['logs'] as $key => $dt) {
 						$fixedEventTime[] = array(
-							'actualTime' => date("m/d/Y G:i:s", $dt['datetime']),
+							'actualTime' => date("m/d/Y G:i:s", intval($dt['datetime'])+intval($checksArray['timezone']))*60),
 							'type' => $dt['type'],
-							'datetime' => $dt['datetime'],
+							'datetime' => intval($dt['datetime'])+intval($checksArray['timezone']))*60,
                             'duration' => intval($dt['duration'])
 							);
                         }
