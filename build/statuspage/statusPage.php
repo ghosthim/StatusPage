@@ -122,30 +122,46 @@ private function getChecksJson($action)
     $apiKey     = constant('apiKey');
     $historyDay = constant('historyDay');
     
-    $url = "https://api.uptimerobot.com/getMonitors?apikey=$apiKey&format=json&noJsonCallback=1&customUptimeRatio=$historyDay";
+    // $url = "https://api.uptimerobot.com/getMonitors?apikey=$apiKey&format=json&noJsonCallback=1&customUptimeRatio=$historyDay";
+    $url = "https://api.uptimerobot.com/v2/getMonitors"
+    $fields = "api_key=$apiKey&format=json&custom_uptime_ratios=$historyDay"
     
     if ($action){
 
-        $url .= '&logs=1&responseTimes=1&responseTimesAverage=30&showTimezone=1';
+        $fields .= '&logs=1&response_times=1&response_times_average=30&timezone=1';
     }
 
     if (constant('includedMonitors') != '') {
         $monitors = constant('includedMonitors');
-        $url .= "&monitors=$monitors";
+        $fields .= "&monitors=$monitors";
  	}
 	
     if (constant('searchMonitors') != '') {
         $search = constant('searchMonitors');
-        $url .= "&search=$search";
+        $fields .= "&search=$search";
  	}
     
     $curl = curl_init();
-    curl_setopt_array($curl, array(
+    /*curl_setopt_array($curl, array(
         CURLOPT_RETURNTRANSFER => 1,
         CURLOPT_URL => $url,
         CURLOPT_USERAGENT => 'UptimeRobot Public Status Page',
         CURLOPT_CONNECTTIMEOUT => 10
-        ));
+        ));*/
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "POST",
+        CURLOPT_POSTFIELDS => $fields, //"api_key=enterYourAPIKeyHere&format=json&logs=1",
+        CURLOPT_HTTPHEADER => array(
+            "cache-control: no-cache",
+            "content-type: application/x-www-form-urlencoded"
+        ),
+    ));
     $checks = json_decode(curl_exec($curl), TRUE);
         //Checks to make sure curl is happy
     if (curl_errno($curl)) {
