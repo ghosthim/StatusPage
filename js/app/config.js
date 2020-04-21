@@ -1,7 +1,7 @@
 //StatusPage config options
 var config = {
         //Name of your statuspage
-        websiteName: 'bgeneto StatusPage',
+        websiteName: 'api2u StatusPage',
 
         //The URL of the backend for the statuspage
         backendURL: 'statuspage/checks.php',
