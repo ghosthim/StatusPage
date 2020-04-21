@@ -2,7 +2,7 @@
 namespace NerdBaggy\StatusPage;
 
 //Uptime Robot API Key
-define('apiKey', '');
+define('apiKey', 'u908649-4fe20d3c7f7bcd59d68abc1e');
 
 //Uptime percentage for following days
 define('historyDay', '1-7-30-360');
